@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace FoodieR.Models.DbObject;
-
 public class Category
 {
     [Key]
@@ -10,3 +9,5 @@ public class Category
 
     public IEnumerable<Product> Products { get; set; }
 }
+
+

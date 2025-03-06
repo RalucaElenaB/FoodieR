@@ -28,10 +28,19 @@ namespace FoodieR.Repositories
             return _context.Products.Include(c => c.Category).ToList();
         }
 
-        //READ
-        public Product GetProductById(int id)
+        //READ = filtrare
+        public IEnumerable<Product> GetProducts(string searchProduct)
         {
-            return _context.Products.Include(c => c.Category).FirstOrDefault(p => p.Id == id);
+            return _context.Products
+                .Include(product => product.Category)
+                .Where(product => product.Name.Contains(searchProduct))
+                .ToList();
+        }
+
+        //READ
+        public async Task<Product> GetProductById(int id)
+        {
+            return await _context.Products.Include(c => c.Category).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         //UPDATE

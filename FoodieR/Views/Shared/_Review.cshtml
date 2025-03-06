@@ -1,0 +1,18 @@
+﻿@model FoodieR.Models.ReviewViewModel
+
+<div class="container border border-1 rounded-2 mt-1 p-1">
+    <p class="text-secondary p-3">@Model.Subject</p>
+    <div class="d-flex p-1 align-items-center justify-content-between">
+        <h1>@Model.Title</h1>
+        <p>@string.Join("", Enumerable.Repeat("⭐", Model.Rating))</p>
+    </div>
+
+    <div class=" d-flex flex-column p-3">
+        @Model.Content
+        <div class="d-flex justify-content-end p-3">
+            <a asp-action="Details" asp-controller="Review" asp-route-id="@Model.Id" class="btn btn-primary m-1">More info</a>
+        </div>
+    </div>
+
+</div>
+

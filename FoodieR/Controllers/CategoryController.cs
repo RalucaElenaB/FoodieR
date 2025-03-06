@@ -29,6 +29,24 @@ namespace FoodieR.Controllers
             return View(category);
         }
 
+
+        //GET: ProductController/Filter
+        public ActionResult Filter(string searchCategory)
+        {
+            if (string.IsNullOrEmpty(searchCategory))
+            {
+                var allCategories = _categoryRepository.GetCategories();//Apelează metoda fără parametru pentru a obține toate categoriile
+                return View("Index", allCategories); 
+            }
+
+            // Filtrare produse în funcție de termenul de căutare: Apelează metoda cu parametru pentru a obține categoriile filtrate
+            var filteredCategories = _categoryRepository.GetCategories(searchCategory);
+            ViewData["CurrentFilter"] = searchCategory; // Păstrează termenul de căutare
+
+            return View("Index", filteredCategories); 
+        }
+
+
         // GET: CategoryController/Create
         public ActionResult Create()
         {

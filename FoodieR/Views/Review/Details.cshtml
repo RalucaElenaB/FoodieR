@@ -1,0 +1,82 @@
+﻿@model FoodieR.Models.ReviewViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Title</h1>
+
+<div >
+
+    <hr />
+    <dl class="row">
+     
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Modified)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Modified)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+
+                var ratingValue = string.Join("", Enumerable.Repeat("⭐", Model.Rating));
+            }
+            <p>@ratingValue</p>
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedByUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedByUser)
+        </dd>
+    </dl>
+</div>
+
+@* <div class="form-group mt-2 d-flex gap-2">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edit</a>
+ 
+    <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+</div> *@
+
+<div>
+    @if (Model.HasEditAndDeletePermissions)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Delete</a>
+    }
+    <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+
+</div>
+
+
+
+
+
+
