@@ -23,7 +23,16 @@ public class ReviewRepository
     //READ all Categories
     public async Task<IEnumerable<Review>> GetReviews()
     {
-        return await _context.Reviews.ToListAsync();
+        return await _context.Reviews
+            .ToListAsync();
+    } 
+
+    public async Task<IEnumerable<Review>> GetReviews(int pageSize, int pageNumber)
+    {
+        return await _context.Reviews
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     // GET: Reviews/Details/5
@@ -72,6 +81,23 @@ public class ReviewRepository
     public  bool ReviewExists(Guid id)
     {
         return _context.Reviews.Any(e => e.Id == id);
+    }
+
+    //PAGINATION
+    public async Task<int> GetAllReviewsCountAsync()
+    {
+        var count = await _context.Reviews.CountAsync();
+        return count;
+    }
+
+    public async Task<IEnumerable<Review>> GetReviewsPagedAsync(int? pageNumber, int pageSize)
+    {
+        IQueryable<Review> reviews = _context.Reviews;
+
+        pageNumber ??= 1; 
+        reviews = reviews.Skip((pageNumber.Value-1) * pageSize).Take(pageSize);
+        return await reviews.AsNoTracking().ToListAsync();
+    
     }
 }
 

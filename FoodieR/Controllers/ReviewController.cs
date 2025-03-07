@@ -1,12 +1,11 @@
 ﻿using FoodieR.Data;
 using FoodieR.Models;
-using FoodieR.Models.DbObject;
+using FoodieR.Models.Helpers;
 using FoodieR.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace FoodieR.Controllers
 {
@@ -35,6 +34,21 @@ namespace FoodieR.Controllers
             var reviewViewModel = reviews.Select(review => ReviewViewModel.FromEntity(review));
             return View(reviewViewModel);
         }
+
+        //PAGINATION
+        private int pageSize= 5; 
+        public async Task<IActionResult> IndexPaging(int? pageNumber)//actiune Index=view Index
+        {
+            var reviews = await _reviewRepository.GetReviewsPagedAsync(pageNumber, pageSize);
+            pageNumber ??= 1;
+
+            var count = await _reviewRepository.GetAllReviewsCountAsync();
+
+            var reviewViewModel = reviews.Select(review => ReviewViewModel.FromEntity(review));
+            
+            return View(new PagedList<ReviewViewModel>(reviewViewModel.ToList(),count, pageNumber.Value, pageSize));
+        }
+
 
         // GET: Reviews/Details/5
         public async Task<IActionResult> Details(Guid id)//actiunea Details=view Details

@@ -67,14 +67,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Subject)
             </td>
-                    <td class="text-center col-3">
+            <td class="text-center col-3">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm me-1">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm me-1">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    <div class="d-flex justify-content-end">
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
 </div>
+
+

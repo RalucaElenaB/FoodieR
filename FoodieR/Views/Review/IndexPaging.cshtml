@@ -1,0 +1,105 @@
+﻿@using FoodieR.Models.Helpers
+
+@model PagedList<ReviewViewModel>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="mb-4">Product Reviews</h1>
+
+<!-- Formular de căutare -->
+<form method="get" asp-controller="Review" asp-action="Filter" class="mb-4">
+    <input type="text" name="searchReview" placeholder="Search subject..." value="@ViewData["CurrentFilter"]" />
+    <button type="submit">Search</button>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">
+                    Title
+                </th>
+                <th class="text-center">
+                    Content
+                </th>
+                <th class="text-center">
+                    Created
+                </th>
+                <th class="text-center">
+                    Modified
+                </th>
+                <th class="text-center">
+                    Rating
+                </th>
+                <th class="text-center">
+                    Subject
+                </th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modified)
+                    </td>
+                    <td>
+
+                        @{
+
+                            var ratingValue = string.Join("", Enumerable.Repeat("⭐", item.Rating));
+                        }
+                        <p>@ratingValue</p>
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td class="text-center col-3">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm me-1">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm me-1">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+   
+</div>
+
+@{
+    string previousButtonDisabled = !Model.HasPreviousPage ? "disable" : "";
+    string nextButtonDisabled = !Model.HasNextPage ? "disable" : "";
+
+}
+
+<div class="text-end">
+    
+    <a asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn bg-light shadow   
+@previousButtonDisabled">
+        Previous
+    </a>
+
+    <a asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn bg-light shadow  
+@nextButtonDisabled">
+        Next
+    </a>
+    
+</div>
+

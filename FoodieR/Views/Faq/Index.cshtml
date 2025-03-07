@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "FAQ - Frequently Asked Questions";
+}
+
+<h1 class="text-center">❓ Frequently Asked Questions (FAQ)</h1>
+<hr />
+
+<div class="accordion" id="faqAccordion">
+    <!-- Întrebarea 1 -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="question1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#answer1" aria-expanded="true" aria-controls="answer1">
+                📌 Cum folosesc aplicația?
+            </button>
+        </h2>
+        <div id="answer1" class="accordion-collapse collapse show" aria-labelledby="question1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                Dacă nu ești logat, poți vedea doar pagina <strong>Products</strong> și <strong>FAQ</strong>. După ce te autentifici, vei avea acces la toate paginile aplicației.
+            </div>
+        </div>
+    </div>
+
+    <!-- Întrebarea 2 -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="question2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer2" aria-expanded="false" aria-controls="answer2">
+                🔐 Dacă nu sunt logat, ce pagini pot accesa?
+            </button>
+        </h2>
+        <div id="answer2" class="accordion-collapse collapse" aria-labelledby="question2" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                Utilizatorii neautentificați pot accesa doar paginile <strong>Products</strong> și <strong>FAQ</strong>. Pentru a vedea restul conținutului, trebuie să te loghezi.
+            </div>
+        </div>
+    </div>
+
+    <!-- Întrebarea 3 -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="question3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer3" aria-expanded="false" aria-controls="answer3">
+                ⭐ Cum creez un Review?
+            </button>
+        </h2>
+        <div id="answer3" class="accordion-collapse collapse" aria-labelledby="question3" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+                Pentru a crea un review, urmează acești pași:
+                <ol>
+                    <li>Accesează pagina <strong>Products</strong>.</li>
+                    <li>Selectează produsul dorit și apasă pe <strong>Details</strong>.</li>
+                    <li>Alege opțiunea <strong>Create New Review</strong>.</li>
+                    <li>Completează formularul și salvează review-ul.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
