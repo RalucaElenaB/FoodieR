@@ -1,64 +1,52 @@
 ﻿@model IEnumerable<FoodieR.Models.ProductViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
 <h1 class="mb-3">Products</h1>
 
 <!-- Formular de căutare -->
-<form method="get" asp-controller="Product" asp-action="Filter" class="mb-4">
-    <input type="text" name="searchProduct" placeholder="Search product..." value="@ViewData["CurrentFilter"]" />
-    <button type="submit" >Search</button>
-</form>
+@if (User.Identity.IsAuthenticated)
+{
+    <form method="get" asp-controller="Product" asp-action="Filter" class="mb-4 d-flex">
+        <input type="text" name="searchProduct" class="form-control me-2" placeholder="Search product..." value="@ViewData["CurrentFilter"]" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
-
-<div class="table-responsive">
-    <table class="table table-hover table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th class="text-center">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-                <th class="text-center">
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-                <th class="text-center">
-                @Html.DisplayNameFor(model => model.Category.Name)
-            </th>
-                <th class="text-center">Actions</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td >
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-
-
-             <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
 }
-    
-</tbody>
-</table>
+
+<!-- Grilă de produse -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body text-center" style="height: 200px; background-color:antiquewhite;">
+                    <h5 class="card-title">
+                        <a asp-action="Details" asp-route-id="@item.ProductId" class="text-dark text-decoration-none">
+                            @item.Name
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted">@item.Category.Name</p>
+                    <p class="fw-bold fs-5">@item.Price €</p>
+                </div>
+
+
+                <div class="card-footer text-center" style="background-color: #ffe0b2;">
+                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm">Details</a>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
 </div>
-
-

@@ -1,18 +1,29 @@
-﻿using FoodieR.Models.DbObject;
+﻿using FoodieR.Models;
+using FoodieR.Models.DbObject;
 using FoodieR.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
 
 namespace FoodieR.Controllers
 {
     public class OrderController : Controller
     {
+        //aduc dependintele necesare
         private readonly OrderRepository _orderRepository;
         private readonly UserRepository _userRepository;
+        private readonly ShoppingCart _shoppingCart;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrderController(OrderRepository orderRepository, UserRepository userRepository)
+
+        public OrderController(OrderRepository orderRepository, UserRepository userRepository, ShoppingCart shoppingCart, UserManager<IdentityUser> userManager)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
+            _shoppingCart = shoppingCart;
+            _userManager = userManager;
+
         }
 
 
@@ -113,6 +124,42 @@ namespace FoodieR.Controllers
             {
                 return View();
             }
+        }
+
+        //formular de finalizare a platii
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Checkout(Order order)
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            _shoppingCart.ShoppingCartItems = items;
+
+            if (_shoppingCart.ShoppingCartItems.Count == 0)
+            {
+                ModelState.AddModelError("", "your cart is empty, ad some products first.");
+            }
+            var user = await _userManager.GetUserAsync(User);
+            order.Customer = user;
+            if (ModelState.IsValid)
+            {
+                _orderRepository.CreateOrder(order);
+                _shoppingCart.ClearCart();
+                return RedirectToAction("CheckoutComplete");
+            }
+
+
+            return View(order);
+        }
+
+        public IActionResult CheckoutComplete()
+        {
+            ViewBag.CheckoutCompleteMessage = "Thanks for your order. You'll soon enjoy your products.";
+            return View();
         }
     }
 }

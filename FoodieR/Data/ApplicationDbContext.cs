@@ -1,4 +1,5 @@
-﻿using FoodieR.Models.DbObject;
+﻿using FoodieR.Models;
+using FoodieR.Models.DbObject;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,4 +19,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderLine> OrderLines { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 }

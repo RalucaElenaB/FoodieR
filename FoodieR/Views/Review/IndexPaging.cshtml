@@ -83,23 +83,31 @@
    
 </div>
 
-@{
-    string previousButtonDisabled = !Model.HasPreviousPage ? "disable" : "";
-    string nextButtonDisabled = !Model.HasNextPage ? "disable" : "";
-
-}
-
-<div class="text-end">
-    
-    <a asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn bg-light shadow   
-@previousButtonDisabled">
-        Previous
+<!-- Paginare -->
+<nav class="d-flex align-items-center ">
+    <!-- Buton Previous -->
+    <a class="btn btn-outline-secondary me-2 @(Model.HasPreviousPage ? "" : "disabled")" 
+       asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex - 1)">
+        &lt; Previous
     </a>
 
-    <a asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn bg-light shadow  
-@nextButtonDisabled">
-        Next
-    </a>
-    
-</div>
+    <!-- Select Dropdown -->
+    <span>Page</span>
+    <select class="form-select mx-2 w-auto"
+            onchange="location.href = this.value;">
+        @for (int i = 1; i <= Model.TotalNumberOfPages; i++)
+        {
+            <option value="@Url.Action("IndexPaging", new { pageNumber = i })"
+                    selected="@(i == Model.PageIndex ? "selected" : null)">
+                @i
+            </option>
+        }
+    </select>
+    <span>of @Model.TotalNumberOfPages</span>
 
+    <!-- Buton Next -->
+    <a class="btn btn-outline-secondary ms-2 @(Model.HasNextPage ? "" : "disabled")"
+       asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex + 1)">
+        Next &gt;
+    </a>
+</nav>

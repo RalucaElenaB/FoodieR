@@ -10,6 +10,13 @@
 
     <hr />
     <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
      
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Content)
@@ -43,12 +50,7 @@
             <p>@ratingValue</p>
         </dd>
 
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
+      
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedByUser)

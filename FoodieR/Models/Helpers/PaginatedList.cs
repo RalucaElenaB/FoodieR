@@ -1,5 +1,6 @@
 ﻿namespace FoodieR.Models.Helpers;
 
+//modelul PagedList<T>, care extinde List<T> și gestionează informațiile despre paginare
 public class PagedList<T> : List<T>
 {
     public int PageIndex { get; private set; }

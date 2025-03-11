@@ -28,9 +28,13 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-success">Edit</a>
-    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    @*<a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-success">Edit</a>*@
+   
+    <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-productId="@Model?.ProductId" class="btn btn-success"> + Add to cart</a>
+     <a asp-action="Index" class="btn btn-secondary">Back</a>
 </div>
+
+
 
 <h2 class="text-center mb-5 p-5">Check Product Reviews</h2>
 

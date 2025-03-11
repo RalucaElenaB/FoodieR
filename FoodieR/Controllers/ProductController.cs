@@ -3,6 +3,7 @@ using FoodieR.Models.DbObject;
 using FoodieR.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace FoodieR.Controllers
@@ -71,7 +72,16 @@ namespace FoodieR.Controllers
             var filteredProducts = _productRepository.GetProducts(searchProduct);
             ViewData["CurrentFilter"] = searchProduct; // Păstrează termenul de căutare
 
-            return View("Index", filteredProducts); // Afișează rezultatele în Index.cshtml
+            var productsViewModel = filteredProducts.Select(product => new ProductViewModel
+            {
+                ProductId = product.Id,
+                Category = product.Category,
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Price = product.Price,
+            });
+
+            return View("Index", productsViewModel); // Afișează rezultatele în Index.cshtml
         }
 
 
@@ -163,5 +173,7 @@ namespace FoodieR.Controllers
                 return View();
             }
         }
+
+       
     }
 }

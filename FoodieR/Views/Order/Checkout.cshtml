@@ -1,0 +1,19 @@
+﻿@model FoodieR.Models.DbObject.Order
+
+<form asp-action="Checkout" method="post" role="form">
+    <h3 class="my-5">
+        You're just one step.
+    </h3>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="col-6">
+
+
+        <div class="mt-2">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-secondary" value="Complete order" />
+            </div>
+        </div>
+    </div>
+</form>
