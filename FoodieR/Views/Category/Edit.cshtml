@@ -19,8 +19,13 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="form-group mt-2 d-flex gap-2">
-                    <input type="submit" value="Save" class="btn btn-success" />
+                    <input type="submit" value="Save" class="btn btn-sm btn-create me-1" />
                     <a asp-action="Index" class="btn btn-secondary">Back</a>
                 </div>
 

@@ -4,7 +4,6 @@ using FoodieR.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Principal;
 
 namespace FoodieR.Controllers
 {
@@ -134,7 +133,7 @@ namespace FoodieR.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Checkout(Order order)
+        public async Task<IActionResult> Checkout(Order order, IFormCollection form)
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;

@@ -12,35 +12,10 @@
     @*add js*@
 
 </head>
-<div id="welcomeModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">🎉 Welcome!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Welcome to the FoodieR community!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        if (localStorage.getItem("ShowWelcomePopup") === "true") {
-            var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
-            welcomeModal.show();
-            localStorage.removeItem("ShowWelcomePopup"); // Șterge după afișare
-        }
-    });
-</script>
 
-<body style="background-color: #FFFAF0;">
+<body style="background-color: #FFF5E6;">
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #ffe0b2;" >
@@ -71,32 +46,33 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="IndexPaging">Reviews</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Reviews</a>
                             </li>
                         }
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                        @* 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
                             </li>
-                        }
+                        *@
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Faq" asp-action="Index">FAQ</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
                         </li>
 
-                     
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="About" asp-action="Index">About</a>
+                        </li>
 
                     </ul>
 
                     @*Search in header*@
                     <form class="d-flex ms-3" method="get" asp-controller="Product" asp-action="Filter">
-                        <input class="form-control me-2" type="search" name="searchProduct" placeholder="Search..." aria-label="Search">
+                        <input class="form-control me-2" type="search" name="searchProduct" placeholder="Search product..." aria-label="Search">
                         <button class="btn btn-light" type="submit">🔍</button>
                     </form>
 
@@ -104,11 +80,8 @@
                     <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">
                         <i class="fas fa-shopping-cart"></i>
                     </a>
-   
-                    <partial name="_LoginPartial" />
 
-                 
-                  
+                    <partial name="_LoginPartial" />
 
                 </div>
             </div>

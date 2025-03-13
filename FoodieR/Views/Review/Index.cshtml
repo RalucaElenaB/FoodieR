@@ -1,84 +1,113 @@
-﻿@model IEnumerable<FoodieR.Models.ReviewViewModel>
+﻿@using FoodieR.Models.Helpers
+
+@model PagedList<ReviewViewModel>
+
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1 class="mb-4">Product Reviews</h1>
+<h1 class="mb-4 text-center">Product Reviews</h1>
 
 <!-- Formular de căutare -->
 <form method="get" asp-controller="Review" asp-action="Filter" class="mb-4">
     <input type="text" name="searchReview" placeholder="Search subject..." value="@ViewData["CurrentFilter"]" />
-    <button type="submit">Search</button> 
+    <button type="submit">Search</button>
 </form>
 
 <div class="table-responsive">
     <table class="table table-hover table-bordered">
         <thead class="table-dark">
-        <tr>
+            <tr>
                 <th class="text-center">
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
+                    Title
+                </th>
                 <th class="text-center">
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
+                    Content
+                </th>
                 <th class="text-center">
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
+                    Created
+                </th>
                 <th class="text-center">
-                @Html.DisplayNameFor(model => model.Modified)
-            </th>
+                    Modified
+                </th>
                 <th class="text-center">
-                @Html.DisplayNameFor(model => model.Rating)
-
-            </th>
+                    Rating
+                </th>
                 <th class="text-center">
-                @Html.DisplayNameFor(model => model.Subject)
-            </th>
+                    Subject
+                </th>
                 <th class="text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+            </tr>
+        </thead>
+        <tbody>
 
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modified)
-            </td>
-             <td >
-                       
-               @{
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modified)
+                    </td>
+                    <td>
 
-                var ratingValue = string.Join("", Enumerable.Repeat("⭐", item.Rating));
-                }
-                <p>@ratingValue</p>
-            
-            </td>
+                        @{
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td class="text-center col-3">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm me-1">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm me-1">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-    <div class="d-flex justify-content-end">
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
-    </div>
+                            var ratingValue = string.Join("", Enumerable.Repeat("⭐", item.Rating));
+                        }
+                        <p>@ratingValue</p>
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td class="text-center col-3">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-edit me-1">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-details me-1">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-delete me-1 ">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+   
 </div>
 
+<!-- Paginare -->
+<nav class="d-flex align-items-center ">
+    <!-- Buton Previous -->
+    <a class="btn btn-outline-secondary me-2 @(Model.HasPreviousPage ? "" : "disabled")" 
+       asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)">
+        &lt; Previous
+    </a>
 
+    <!-- Select Dropdown -->
+    <span>Page</span>
+    <select class="form-select mx-2 w-auto"
+            onchange="location.href = this.value;">
+        @for (int i = 1; i <= Model.TotalNumberOfPages; i++)
+        {
+            <option value="@Url.Action("Index", new { pageNumber = i })"
+                    selected="@(i == Model.PageIndex ? "selected" : null)">
+                @i
+            </option>
+        }
+    </select>
+    <span>of @Model.TotalNumberOfPages</span>
+
+    <!-- Buton Next -->
+    <a class="btn btn-outline-secondary ms-2 @(Model.HasNextPage ? "" : "disabled")"
+       asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)">
+        Next &gt;
+    </a>
+</nav>

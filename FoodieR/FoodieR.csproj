@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup> <!--Foldere incluse -->
-    <Folder Include="Views\User\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

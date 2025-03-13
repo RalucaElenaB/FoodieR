@@ -1,10 +1,9 @@
 ﻿using FoodieR.Models;
 using FoodieR.Models.DbObject;
 using FoodieR.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 
 namespace FoodieR.Controllers
 {
@@ -13,20 +12,27 @@ namespace FoodieR.Controllers
         private readonly ProductRepository _productRepository;
         private readonly CategoryRepository _categoryRepository;
         private readonly ReviewRepository _reviewRepository;
+        private const string _adminId = "2791fad0-c69d-4691-876a-dbff73644de3";
+        private readonly UserManager<IdentityUser> _userManager;
 
         public ProductController(ProductRepository productRepository,
-            CategoryRepository categoryRepository, ReviewRepository reviewRepository)
+            CategoryRepository categoryRepository, ReviewRepository reviewRepository, 
+            UserManager<IdentityUser> userManager)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _reviewRepository = reviewRepository;
+            _userManager = userManager;
         }
 
       
         // GET: ProductController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);//extrag userul logat
+
             var products = _productRepository.GetProducts();
+
             var productsViewModel = products.Select(product => new ProductViewModel
             {
                 ProductId = product.Id,
@@ -34,6 +40,7 @@ namespace FoodieR.Controllers
                 Name = product.Name,
                 CategoryId = product.CategoryId,
                 Price = product.Price,
+                IsAdmin = user?.Id == _adminId,
             });
 
             return View(productsViewModel);
@@ -52,6 +59,7 @@ namespace FoodieR.Controllers
                 Name = product.Name,
                 CategoryId = product.CategoryId,
                 Price = product.Price,
+                Description = product.Description,
                 Reviews = reviews.Select(review => ReviewViewModel.FromEntity(review))
             };
 
@@ -65,7 +73,16 @@ namespace FoodieR.Controllers
             if (string.IsNullOrEmpty(searchProduct))
             {
                 var allProducts = _productRepository.GetProducts();
-                return View("Index", allProducts); // Afișează rezultatele în Index.cshtml
+
+                var productsViewModelWithAllProducts = allProducts.Select(product => new ProductViewModel
+                {
+                    ProductId = product.Id,
+                    Category = product.Category,
+                    Name = product.Name,
+                    CategoryId = product.CategoryId,
+                    Price = product.Price,
+                });
+                return View("Index", productsViewModelWithAllProducts); // Afișează rezultatele în Index.cshtml
             }
 
             // Filtrare produse în funcție de termenul de căutare
@@ -107,6 +124,7 @@ namespace FoodieR.Controllers
                     Name = collection["Name"],
                     Price = decimal.Parse(collection["Price"]),
                     CategoryId = int.Parse(collection["CategoryId"]),
+                    Description = collection["Description"]
 
                 };
                 _productRepository.AddProduct(product);
@@ -141,6 +159,9 @@ namespace FoodieR.Controllers
                 product.Name = collection["Name"];
                 product.Price = decimal.Parse(collection["Price"]);
                 product.CategoryId = int.Parse(collection["CategoryId"]);
+
+                product.Description = collection["Description"];
+
                 _productRepository.UpdateProduct(product);
                 return RedirectToAction(nameof(Index));
             }

@@ -1,19 +1,50 @@
 ﻿@model FoodieR.Models.DbObject.Order
 
-<form asp-action="Checkout" method="post" role="form">
-    <h3 class="my-5">
-        You're just one step.
-    </h3>
+<form asp-action="Checkout" method="post" role="form" class="p-4 border rounded shadow-sm bg-light">
+    <h3 class="mb-4 text-center">Complete Your Order</h3>
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div class="col-6">
+    <div class="row g-3">
+    
 
+        <!-- Email -->
+        <div class="col-md-6">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="example@email.com" />
+        </div>
 
-        <div class="mt-2">
-            <div class="col-md-offset-2 col-md-5">
-                <input type="submit" class="btn btn-secondary" value="Complete order" />
-            </div>
+        <!-- Adresă -->
+        <div class="col-md-12">
+            <label asp-for="Address" class="form-label">Address</label>
+            <input asp-for="Address" class="form-control" placeholder="Street, City, Country" />
+        </div>
+
+        <!-- Telefon (opțional) -->
+        <div class="col-md-6">
+            <label asp-for="PhoneNumber" class="form-label">Phone Number (optional)</label>
+            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="+40 123 456 789" />
+        </div>
+
+        <!-- Metodă de livrare -->
+        <div class="col-md-6">
+            <label class="form-label">Delivery Method</label>
+            <select asp-for="DeliveryMethod" class="form-select">
+                <option value="Standard">Standard (3-5 days)</option>
+                <option value="Express">Express (1-2 days)</option>
+                <option value="Pickup">Pick-up from store</option>
+            </select>
+        </div>
+
+        <!-- Notă (opțională) -->
+        <div class="col-md-12">
+            <label asp-for="OrderNotes" class="form-label">Order Notes (optional)</label>
+            <textarea asp-for="OrderNotes" class="form-control" rows="3" placeholder="Any special instructions?"></textarea>
+        </div>
+
+        <!-- Buton de finalizare -->
+        <div class="col-12 text-center mt-4">
+            <button type="submit" class="btn btn-primary px-5">Complete Order</button>
         </div>
     </div>
 </form>

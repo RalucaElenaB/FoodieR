@@ -4,20 +4,19 @@
     ViewData["Title"] = "Products";
 }
 
-<h1 class="mb-3">Products</h1>
+<h1 class="mb-4 text-center">Products</h1>
 
 <!-- Formular de căutare -->
-@if (User.Identity.IsAuthenticated)
-{
-    <form method="get" asp-controller="Product" asp-action="Filter" class="mb-4 d-flex">
-        <input type="text" name="searchProduct" class="form-control me-2" placeholder="Search product..." value="@ViewData["CurrentFilter"]" />
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+<form method="get" asp-controller="Product" asp-action="Filter" class="mb-4 ">
+    <input type="text" name="searchProduct" placeholder="Search product..." value="@ViewData["CurrentFilter"]" />
+    <button type="submit">Search</button>
+</form>
+
 
     <p>
-        <a asp-action="Create" class="btn btn-success">Create New</a>
+        <a asp-action="Create" class="btn btn-sm btn-create me-1">Create product</a>
     </p>
-}
+
 
 <!-- Grilă de produse -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -33,20 +32,21 @@
                         </a>
                     </h5>
                     <p class="card-text text-muted">@item.Category.Name</p>
-                    <p class="fw-bold fs-5">@item.Price €</p>
+                    @*<p class="fw-bold fs-5">@item.Price €</p>*@
+                    <p class="fw-bold fs-5">@item.Price.ToString("C", new System.Globalization.CultureInfo("fr-FR"))</p>
                 </div>
 
 
                 <div class="card-footer text-center" style="background-color: #ffe0b2;">
-                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-sm btn-details me-1">Details</a>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary btn-sm">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger btn-sm">Delete</a>
-                    }
+
+                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-edit me-1">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-delete me-1">Delete</a>
+                    
                 </div>
             </div>
         </div>
     }
 </div>
+

@@ -15,4 +15,14 @@ public class Order
     public List<OrderLine> OrderLines { get; set; }//detaliile comenzii: O listă care conține toate produsele incluse în comandă (relație 1 la multe cu OrderLine); face legătura cu toate produsele din comandă.
 
     public IdentityUser Customer { get; set; }//Utilizatorul care a plasat comanda, reprezentat de clasa IdentityUser din ASP.NET Identity.
+
+
+    //date necesare pentru a completa Formularul de comanda
+
+    [EmailAddress]
+    public string Email { get; set; }
+    public string Address { get; set; }
+    public string PhoneNumber { get; set; } // Opțional
+    public string OrderNotes { get; set; } // Opțional
+    public string DeliveryMethod { get; set; }
 }

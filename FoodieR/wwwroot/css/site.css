@@ -46,3 +46,53 @@ body {
     text-shadow: #0B5ED7 8px 0 1px;
 }
 
+/*stiluri pentru butoane*/
+.btn-create {
+    background-color: #ffa726;
+    border-color: #ffa726;
+    color: #fff; /* Alb implicit */
+}
+
+    .btn-create:hover {
+        color: #000; /* Negru la hover */
+    }
+
+.btn-edit {
+    background-color: #f4a460;
+    border-color: #f4a460;
+    color: #fff; /* Alb implicit */
+}
+
+    .btn-edit:hover {
+        color: #000; /* Negru la hover */
+    }
+
+.btn-details {
+    background-color: #ffb74d; /* Portocaliu moderat */
+    border-color: #ffb74d;
+    color: #fff; /* Alb implicit */
+}
+
+    .btn-details:hover {
+        color: #000; /* Negru la hover */
+    }
+
+.btn-delete {
+    background-color: #e65100;
+    border-color: #e65100;
+    color: #fff; /* Alb implicit */
+}
+
+    .btn-delete:hover {
+        color: #000; /* Negru la hover */
+    }
+
+.btn-add-to-cart {
+    background-color: #FFA500; /* sau #FFA500 pentru portocaliu */
+   
+    color: #fff; /* text alb */
+}
+
+    .btn-add-to-cart:hover {
+        background-color: #f4a460; /* o nuan?? mai închis? la hover */
+    }

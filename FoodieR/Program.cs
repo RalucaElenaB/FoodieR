@@ -1,9 +1,8 @@
+using FoodieR.Data;
+using FoodieR.Models;
+using FoodieR.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using FoodieR.Data;
-using FoodieR.Repositories;
-using System.Configuration;
-using FoodieR.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +15,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddScoped<ShoppingCart, ShoppingCart>(sp => ShoppingCart.GetCart(sp));// Adaug ShoppingCart ca serviciu în containerul de dependen?e.
 builder.Services.AddSession();//Activeaz? suportul pentru sesiuni în aplica?ie: sesiunile sunt utilizate pentru a p?stra date(CartId) între diferite cereri HTTP.
@@ -56,9 +57,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
+

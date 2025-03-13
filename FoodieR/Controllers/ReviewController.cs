@@ -27,17 +27,10 @@ namespace FoodieR.Controllers
             _productRepository = productRepository;
         }
 
-        // GET: Reviews
-        public async Task<IActionResult> Index()//actiune Index=view Index
-        {
-            var reviews = await _reviewRepository.GetReviews();
-            var reviewViewModel = reviews.Select(review => ReviewViewModel.FromEntity(review));
-            return View(reviewViewModel);
-        }
 
         //PAGINATION
         private int pageSize= 5; 
-        public async Task<IActionResult> IndexPaging(int? pageNumber)//actiune Index=view Index
+        public async Task<IActionResult> Index(int? pageNumber)//actiune Index=view Index
         {
             var reviews = await _reviewRepository.GetReviewsPagedAsync(pageNumber, pageSize);
             pageNumber ??= 1;
@@ -116,8 +109,7 @@ namespace FoodieR.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ReviewViewModel reviewViewModel)
         {
-            //if (ModelState.IsValid)
-            //{
+           
 
             var user = await _userManager.GetUserAsync(User);//extrag userul = obiect ce contine toate info despre el
 
@@ -132,8 +124,7 @@ namespace FoodieR.Controllers
             _reviewRepository.AddReview(review);
          
             return RedirectToAction("Details", "Product", new { id = product.Id });
-            //}
-            //return View(reviewViewModel);
+            
         }
 
         // GET: Reviews/Edit/5

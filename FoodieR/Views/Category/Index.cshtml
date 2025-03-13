@@ -1,46 +1,63 @@
-﻿@model IEnumerable<FoodieR.Models.DbObject.Category>
+﻿@model FoodieR.Models.CategoryViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1 class="mb-3">Categories</h1>
-
-<!-- Formular de căutare -->
-<form method="get" asp-controller="Category" asp-action="Filter" class="mb-4">
-    <input type="text" name="searchCategory" placeholder="Search category..." value="@ViewData["CurrentFilter"]" />
-    <button type="submit" >Search</button>
-</form>
-
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
+<h1 class="mb-4 text-center">Explore Our Categories</h1>
+<p class="mb-4 text-center">
+    Descoperă gama noastră variată de categorii de produse, atent selecționate pentru a satisface toate preferințele și nevoile tale.
 </p>
 
-<div class="table-responsive">
-    <table class ="table table-hover table-bordered">
-        <thead class="table-dark">
-        <tr>
-                <th class="text-center">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-                <th class="text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-                    <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
+<!-- Formular de căutare -->
+    <form method="get" asp-controller="Category" asp-action="Filter" class="mb-4 ">
+        <input type="text" name="searchCategory" placeholder="Search category..." value="@ViewData["CurrentFilter"]" />
+        <button type="submit">Search</button>
+
+
+    </form>
+
+@if (Model.IsAdmin)
+{
+    <p>
+        <a asp-action="Create" class="btn btn-sm btn-create me-1">Create category</a>
+    </p>
 }
-    </tbody>
-</table>
+    
 
+<!-- Grilă de categorii -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var category in Model.Categories)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
 
+                <!-- Imagine categorie (opțional) -->
+
+                <div class="card-body text-center" text-center" style="height: 200px; background-color:antiquewhite;">
+                    <h5 class="card-title">
+                        <a asp-action="Details" asp-route-id="@category.Id" class="text-dark text-decoration-none">
+                            @category.Name
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted">
+                        @category.Products
+                    </p>
+                </div>
+
+                <!-- Butoane acțiuni -->
+                <div class="card-footer text-center" style="background-color: #ffe0b2;">
+                    <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-sm btn-details me-1">Details</a>
+
+                    @if (Model.IsAdmin)
+                    {
+                        <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-edit me-1">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-delete">Delete</a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
 </div>
+

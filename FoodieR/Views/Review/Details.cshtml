@@ -50,8 +50,6 @@
             <p>@ratingValue</p>
         </dd>
 
-      
-
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedByUser)
         </dt>
@@ -61,16 +59,11 @@
     </dl>
 </div>
 
-@* <div class="form-group mt-2 d-flex gap-2">
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edit</a>
- 
-    <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
-</div> *@
 
 <div>
     @if (Model.HasEditAndDeletePermissions)
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-edit me-1">Edit</a>
         <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Delete</a>
     }
     <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
