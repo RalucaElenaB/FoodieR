@@ -6,6 +6,7 @@ namespace FoodieR.Controllers;
 
 public class HomeController : Controller
 {
+    //logger e din clasa utilitara Controller d easta nu e inregistrat ca dependinta/servciu in Program.cs
     private readonly ILogger<HomeController> _logger;
 
     public HomeController(ILogger<HomeController> logger)

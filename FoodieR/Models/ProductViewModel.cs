@@ -17,10 +17,6 @@ public class ProductViewModel
 
     public IEnumerable<ReviewViewModel> Reviews { get; set; }
 
-    //rol administrator
-    public List<Product> Products { get; set; }
-    public bool IsAdmin { get; set; }
-
     public string Description { get; set; }
 
 }

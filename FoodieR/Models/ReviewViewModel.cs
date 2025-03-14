@@ -17,6 +17,7 @@ namespace FoodieR.Models
         public int Rating { get; set; }//stelutele de tip nr intreg, impicit au valoarea minim 1, de asta nu e necesar Required
 
         [Required]
+        [Display(Name = "Product name")]
         public string Subject { get; set; }//produsul pentru care se lasa recenzia
 
         public string CreatedById { get; set; }//Id-ul utilizatorului, nu toate datele lui

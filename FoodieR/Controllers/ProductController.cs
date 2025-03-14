@@ -1,7 +1,6 @@
 ﻿using FoodieR.Models;
 using FoodieR.Models.DbObject;
 using FoodieR.Repositories;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -12,24 +11,23 @@ namespace FoodieR.Controllers
         private readonly ProductRepository _productRepository;
         private readonly CategoryRepository _categoryRepository;
         private readonly ReviewRepository _reviewRepository;
-        private const string _adminId = "2791fad0-c69d-4691-876a-dbff73644de3";
-        private readonly UserManager<IdentityUser> _userManager;
+
 
         public ProductController(ProductRepository productRepository,
-            CategoryRepository categoryRepository, ReviewRepository reviewRepository, 
-            UserManager<IdentityUser> userManager)
+            CategoryRepository categoryRepository, ReviewRepository reviewRepository
+            )
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _reviewRepository = reviewRepository;
-            _userManager = userManager;
+            
         }
 
       
         // GET: ProductController
         public async Task<ActionResult> Index()
         {
-            var user = await _userManager.GetUserAsync(User);//extrag userul logat
+           
 
             var products = _productRepository.GetProducts();
 
@@ -40,7 +38,6 @@ namespace FoodieR.Controllers
                 Name = product.Name,
                 CategoryId = product.CategoryId,
                 Price = product.Price,
-                IsAdmin = user?.Id == _adminId,
             });
 
             return View(productsViewModel);

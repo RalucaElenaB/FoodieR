@@ -1,4 +1,9 @@
-﻿@model IEnumerable<FoodieR.Models.ProductViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@model IEnumerable<FoodieR.Models.ProductViewModel>
 
 @{
     ViewData["Title"] = "Products";
@@ -12,11 +17,12 @@
     <button type="submit">Search</button>
 </form>
 
-
+@if(User.IsInRole("Admin"))
+{
     <p>
         <a asp-action="Create" class="btn btn-sm btn-create me-1">Create product</a>
     </p>
-
+}
 
 <!-- Grilă de produse -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -39,11 +45,13 @@
 
                 <div class="card-footer text-center" style="background-color: #ffe0b2;">
                     <a asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-sm btn-details me-1">Details</a>
+                    <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-productId="@item.ProductId" class="btn btn-sm btn-add-to-cart"> + Add to cart</a>
 
-
+                    @if (User.IsInRole("Admin"))
+                    { 
                     <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-edit me-1">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-delete me-1">Delete</a>
-                    
+                    }
                 </div>
             </div>
         </div>

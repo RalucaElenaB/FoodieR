@@ -1,7 +1,7 @@
 ﻿using FoodieR.Models;
 using FoodieR.Models.DbObject;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;//IdentityDbContext e o clasa de EntityFramework
 
 namespace FoodieR.Data;
 public class ApplicationDbContext : IdentityDbContext
