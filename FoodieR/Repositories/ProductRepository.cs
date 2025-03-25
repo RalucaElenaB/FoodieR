@@ -1,8 +1,6 @@
 ﻿using FoodieR.Data;
 using FoodieR.Models.DbObject;
 using Microsoft.EntityFrameworkCore;
-using System.CodeDom;
-using System.Linq;
 
 namespace FoodieR.Repositories
 {

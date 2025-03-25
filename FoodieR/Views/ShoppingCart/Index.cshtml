@@ -9,6 +9,9 @@
 
 <div class="row gx-3">
     <div class="col-8">
+        @{
+            decimal exchangeRate = 5.0m; // Rata de schimb fixă
+        }
         @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
         {
             <div class="card shopping-cart-card mb-2">
@@ -18,7 +21,7 @@
                             <h5 class="card-text">@line.Amount x @line.Product.Name</h5>
                             <div class="d-flex justify-content-between">
                                 <h6>@line.Product.Category</h6>
-                                <h2>@line.Product.Price.ToString("c")</h2>
+                                <h2>@((line.Product.Price / exchangeRate).ToString("0.00")) €</h2>
                             </div>
                         </div>
                     </div>
@@ -30,7 +33,7 @@
         <div class="card shopping-cart-card p-3">
             <div class="row">
                 <h4 class="col">Total:</h4>
-                <h4 class="col text-end">@Model.ShoppingCartTotal.ToString("c")</h4>
+                <h4 class="col text-end">@((Model.ShoppingCartTotal / exchangeRate).ToString("0.00")) €</h4>
             </div>
             <hr />
             <div class="text-center d-grid">

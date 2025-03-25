@@ -35,7 +35,6 @@
     </dl>
 </div>
 <div>
-    @*<a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-success">Edit</a>*@
    
     <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-productId="@Model?.ProductId" class="btn btn-add-to-cart"> + Add to cart</a>
      <a asp-action="Index" class="btn btn-secondary">Back</a>

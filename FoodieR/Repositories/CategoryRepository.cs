@@ -13,41 +13,46 @@ public class CategoryRepository
     }
 
     //CREATE
-    public void AddCategory(Category category)
+    public void AddCategory(Category category)//Unit test: AddCategory_ShouldAddCategory()
     {
         _context.Categories.Add(category);
         _context.SaveChanges();
     }
 
+
+ 
+    //READ all Categories
+    public IEnumerable<Category> GetCategories()//Unit test: GetCategories_ShouldReturnAllCategories()
+    {
+        return _context.Categories.ToList();
+    }
+
+    //READ one Category by id
+    public Category GetCategoryById(int id)//unit test: GetCategoryById_ShouldReturnCorrectCategory()
+    {
+        return _context.Categories.FirstOrDefault(c => c.Id == id);
+    }
+
+
     //READ = filtrare
-    public IEnumerable<Category> GetCategories(string searchCategory)
+    public IEnumerable<Category> GetCategories(string searchCategory)//unit test: GetCategories_Filtered_ShouldReturnMatchingCategories()
     {
         return _context.Categories
             .Where(category => category.Name.Contains(searchCategory))
             .ToList();
     }
 
-    //READ all Categories
-    public IEnumerable<Category> GetCategories()
-    {
-        return _context.Categories.ToList();
-    }
-
-    //READ one Category by id
-    public Category GetCategoryById(int id)
-    {
-        return _context.Categories.FirstOrDefault(c => c.Id == id);
-    }
 
     //UPDATE Category
-    public void UpdateCategory(Category category)
+    public void UpdateCategory(Category category)//unit test: UpdateCategory_ShouldModifyExistingCategory()
     {
         _context.Categories.Update(category);
         _context.SaveChanges();
     }
 
+
     //DELETE Category
-    public void DeleteCategory(int id)
+    public void DeleteCategory(int id)//unit test: DeleteCategory_ShouldRemoveCategory
     {
         var category = _context.Categories.FirstOrDefault(c => c.Id == id);
         if (category != null)

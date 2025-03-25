@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FoodieR.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
         //aduc dependintele necesare

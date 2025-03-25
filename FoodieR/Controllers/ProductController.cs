@@ -64,14 +64,15 @@ namespace FoodieR.Controllers
             return View(productViewModel);
         }
 
-        // GET: ProductController/Filter
+        // GET: ProductController/Filter(functionalitatea Search din header si din pagina Product)
         public ActionResult Filter(string searchProduct)
         {
             if (string.IsNullOrEmpty(searchProduct))
             {
                 var allProducts = _productRepository.GetProducts();
 
-                var productsViewModelWithAllProducts = allProducts.Select(product => new ProductViewModel
+                var productsViewModelWithAllProducts = allProducts
+                    .Select(product => new ProductViewModel
                 {
                     ProductId = product.Id,
                     Category = product.Category,
@@ -86,7 +87,8 @@ namespace FoodieR.Controllers
             var filteredProducts = _productRepository.GetProducts(searchProduct);
             ViewData["CurrentFilter"] = searchProduct; // Păstrează termenul de căutare
 
-            var productsViewModel = filteredProducts.Select(product => new ProductViewModel
+            var productsViewModel = filteredProducts
+                .Select(product => new ProductViewModel
             {
                 ProductId = product.Id,
                 Category = product.Category,

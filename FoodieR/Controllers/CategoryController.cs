@@ -75,7 +75,7 @@ namespace FoodieR.Controllers
                 {
                     //Id= int.Parse(collection["Id"]),
                     Name = collection["Name"],
-                    Description = collection["Description"]
+                    Description = collection["Description"]//add de prop noua
                 };
                 _categoryRepository.AddCategory(category);
                 return RedirectToAction(nameof(Index));

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework> <!--Proiectul folosește .NET 8.0-->
-	<Nullable>disable</Nullable> <!--dezactivez verificările pentru null impuse de compilator--> <!--enable: face o extra validare pentru null-->
+	<Nullable>disable</Nullable> <!--dezactivez verificările pentru null impuse de compilator: C# nu mai avertizează despre posibile valori null care pot cauza NullReferenceException--> <!--enable: face o extra validare pentru null-->
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-FoodieR-047e2d4d-9103-4bed-820b-e86629bbe3e7</UserSecretsId>
   </PropertyGroup>

@@ -17,7 +17,7 @@ public class ShoppingCartController : Controller
         _shoppingCart = shoppingCart;
     }
 
-    //Index-ul cosului-unde vad toate articolele
+    //Index-ul cosului- unde vad toate articolele
     public ViewResult Index()
     {
         var items = _shoppingCart.GetShoppingCartItems();

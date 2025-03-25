@@ -46,7 +46,7 @@ namespace FoodieR.Models
             };
         }
 
-        //metoda pt a converti de la ReviewViewModel la o entitate
+        //metoda pt a converti de la ReviewViewModel la o entitate(Review)
         public Review ToEntity()//convertim ReviewViewModel intr- o entitate ToEntity(); La baza de date trebuie sa anunga un Review nu un ReviewViewModel, de asta facem conversia folosind metodele punse in Clasa ReviewViewModel
         {
             return new Review

@@ -58,7 +58,7 @@ else
 app.UseHttpsRedirection();//fortam catre https daca url-ul e http
 app.UseStaticFiles();//wwwroot = fisiere statice
 
-app.UseSession();//o metod? folosit? în Middleware-ul unei aplica?ii ASP.NET Core pentru a activa gestionarea sesiunilor
+app.UseSession();//activez gestionarea sesiunilor
 
 app.UseRouting();//rutare
 

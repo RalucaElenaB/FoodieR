@@ -72,20 +72,20 @@ namespace FoodieR.Controllers
         }
 
         //GET: ProductController/Filter
-        public async Task<ActionResult> Filter(string searchReview)
+        public async Task<ActionResult> Filter(string searchReview, int? pageNumber)
         {
             if (string.IsNullOrEmpty(searchReview))
             {
                 var allReviews = await _reviewRepository.GetReviews();//Apelează metoda fără parametru pentru a obține toate categoriile
                 return View("Index", allReviews.Select(review => ReviewViewModel.FromEntity(review)));
             }
-
+            pageNumber ??= 1;
             // Filtrare produse în funcție de termenul de căutare: Apelează metoda cu parametru pentru a obține categoriile filtrate
             var filteredReviews = _reviewRepository.GetReviews(searchReview);
+            var count = filteredReviews.Count();
             var reviewViewModel = filteredReviews.Select(review => ReviewViewModel.FromEntity(review));
             ViewData["CurrentFilter"] = searchReview; // Păstrează termenul de căutare
-
-            return View("Index", reviewViewModel);
+            return View("Index", new PagedList<ReviewViewModel>(reviewViewModel.ToList(), count, pageNumber.Value, pageSize));
         }
 
 
